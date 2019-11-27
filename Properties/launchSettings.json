@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FIleAPI_CLI": {
+      "commandName": "Project",
+      "commandLineArgs": "--s --fileapifileid  0A4DE1CC-839C-4113-88AC-8D1F9C9EAEB5 --userid JENQKA002900005 --idfield 43 --rowcount 11 --totalsum 0 --debtoriban \"iban\""
+    }
+  }
+}

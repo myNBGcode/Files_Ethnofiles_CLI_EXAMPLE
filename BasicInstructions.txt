@@ -1,0 +1,104 @@
+/*********************************************************************************
+*
+*	Basic instructions for configuring and using the FIleAPI_CLI tool. 
+*
+*********************************************************************************/
+
+1.CONFIGURATION
+---------------------------------------------------------------------------------
+	1.1 appSettings.json: 
+			Within the "appSettings.json" file, are configured 
+			the information about authorization and proxy 
+			application endpoints.
+
+	1.2 inputData.json:
+			Within the "inputData.json" file, are configured the default 
+			parameter values used in each command. In order for these values 
+			to be used in a command, the argument "--completefromconfig" 
+			must be also used in that command. Then, every argument of that 
+			command, that is not explicitly set, will take the value from 
+			the inputData.json file. 
+
+2.COMMANDS
+---------------------------------------------------------------------------------
+	## General Arguments ##
+		The following arguments apply to all commands.
+			--user				 : The user.
+			--registry			 : User registry.
+			--subjectuser		 : If left blank then it will take the user value.
+			--subjectregistry	 : If left blank will take the registry value.
+			--completefromconfig : As stated above, with this argument in a command, 
+								   every other unspecified argument will take its 
+								   value from the "inputData.json" configuration.
+
+	2.1 --upload (or --u): Uploads File from a specified path
+		## Upload Arguments ##
+			--inputfile		 : Required. Filename with full path.
+			--filedescription: Description for the file.
+			--folderid		 : Folder Guid. 
+			--metadata		 : File metadata.
+			--usertags		 : File tags separated by coma ','
+
+	2.2 --download (or --d): Downloads a File by its GUID, in a specified directory
+		## Download Arguments ##
+			--fileid		: Required. File Guid.
+			--downloadfolder: Required. Download location path.
+	
+	2.3 --addusertags : Add User Tags To A File
+		## Add User Tags Arguments ##
+			--addusertagsfileid : Required. File Guid.
+			--usertagstoadd		: Required. Tags separated by coma ','
+
+	2.4 --removeusertags : Remove User Tags From A File
+		## Remove User Tags Arguments ##
+			--removeusertagsfileid : Required. File Guid.
+			--usertagstoremove : Required. Tags separated by coma ','
+
+	2.5 --sendtoethnofiles (or --s): Sends file to Ethnofiles
+		## Send File To Ethnofiles Arguments ##
+			--fileapifileid : Required. File Guid from fileAPI.
+			--userid		: The user
+			--idfield		: File Type Id
+			--rowcount
+			--totalsum
+			--debtoriban
+			--tannumber
+			--locale
+			--inboxid
+			--xactionid
+			--issmsotp
+			--convid
+			--xmlfilefield
+			--debtorname
+			--acceptterms
+			--accepttrnterms
+
+3.EXAMPLES
+---------------------------------------------------------------------------------
+	Commands examples assuming being in the dll directory.
+
+	3.1 Upload Example
+		dotnet FIleAPI_CLI.dll --u --user MyUser --registry MyRegistry --inputfile "../Files/smallfile.txt" --filedescription "Example Uploaded from cli tool"
+
+	3.2 Download Example
+		dotnet FIleAPI_CLI.dll --d --user MyUser --registry MyRegistry --fileid  aa7429d0-19ad-4efd-b1ac-02e42f128cd7 --downloadfolder C:\OutputFiles\
+
+	3.3 Add User Tags Example
+		dotnet FIleAPI_CLI.dll --addusertags --user MyUser --registry MyRegistry --addusertagsfileid  aa7429d0-19ad-4efd-b1ac-02e42f128cd7 --usertagstoadd addedTag1,addedtag2,addedtag3
+
+	3.4 Remove User Tags Example
+		dotnet FIleAPI_CLI.dll --removeusertags --user MyUser --registry MyRegistry --removeusertagsfileid  aa7429d0-19ad-4efd-b1ac-02e42f128cd7 --usertagstoremove addedTag1,addedtag2
+
+	3.5 Send File To Ethnofiles Example
+		dotnet FIleAPI_CLI.dll --s --fileapifileid  b8a3f91c-0319-4748-9e77-be0a101514b4 --userid MyUser --idfield 43 --rowcount 11 --totalsum 0 --debtoriban "iban"
+	
+	3.6 Upload Example with filling all unspecified values from input.js
+		dotnet FIleAPI_CLI.dll --u --inputfile "../Files/smallfile.txt" --filedescription "Example Uploaded from cli tool" --completefromconfig
+
+4.OTHER NOTES
+---------------------------------------------------------------------------------
+
+** When the CLI is used with the sandboxes, the same user (e.g MyUser) must exist in both File Api Sandbox and Ethnofiles Api Sandbox.
+
+
+**END**

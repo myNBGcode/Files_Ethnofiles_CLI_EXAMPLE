@@ -1,0 +1,48 @@
+{
+  //General Parameters:
+  "User": "to be replaced",
+  "Registry": "IBank",
+
+  "SubjectUser": null, //same user if left blank
+  "SubjectRegistry": null, //same registry if left blank
+
+
+  //Upload Parameters Required:
+  "InputFile": "..\\..\\..\\Files\\test2.pdf", //path and filename
+
+  //Upload Parameters Optional:
+  "FileDescription": "",
+  "FolderId": null,
+  "Metadata": null,
+  "UserTags": [ "tag3", "tag4" ],
+
+  //Download Parameters:
+  "FileId": "352400fe-864e-4338-866a-03fb0c55ccd1", //Guid
+  "DownloadFolder": "..\\..\\..\\", //only download path
+
+  //Add User Tags Parameters:
+  "AddUserTagsFileId": "ea412752-f546-480b-9509-0d26efab2150",
+  "UserTagsToAdd": [ "tag5", "tag4" ],
+
+  //Remove User Tags Parameters:
+  "RemoveUserTagsFileId": "ea412752-f546-480b-9509-0d26efab2150",
+  "UserTagsToRemove": [ "tag5", "tag4" ],
+
+  //Send to Ethnofiles Parameters:
+  "FileApiFileId": "",
+  "UserID": "to be replaced",
+  "IdField": "43",
+  "RowCount": "11",
+  "TotalSum": "",
+  "DebtorIBAN": "",
+  "TanNumber": "",
+  "Locale": "",
+  "InboxId": "",
+  "XactionId": "",
+  "IsSmsOtp": "",
+  "ConvId": "",
+  "XmlFileField": "",
+  "DebtorName": "",
+  "AcceptTerms": "",
+  "AcceptTrnTerms": ""
+}
