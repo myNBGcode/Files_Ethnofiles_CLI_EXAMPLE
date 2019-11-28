@@ -178,7 +178,7 @@ namespace FIleAPI_CLI
             if (fileType == null)
                 Console.Write("\nFileType not found, with id: " + idField);
             else
-                Console.Write("/nFileType with id:" + idField + " , is selected from the following file type ids list: [" + String.Join(',', populateFileTypesResponse.Payload.FileTypeList.Select(p => p.IdField)) + "]");
+                Console.Write("\nFileType with id:" + idField + " , is selected from the following file type ids list: [" + String.Join(',', populateFileTypesResponse.Payload.FileTypeList.Select(p => p.IdField)) + "]");
 
             return fileType;
 
