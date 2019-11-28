@@ -4,6 +4,17 @@
 *
 *********************************************************************************/
 
+INSTALLATION
+---------------------------------------------------------------------------------
+	The application leverages the .Net Core Runtime library to be able to conform 
+	to the multiplatform requirements. In order to run the application the current 
+	.Net Core Runtime for your environment must be downloaded and installed 
+	(https://dotnet.microsoft.com/download).
+
+	The application is run by navigating to the correct location and using the command 
+	'dotnet' followed by the .dll of the app and the accompanying parameters as described 
+	further below in these instructions (Examples Section).
+
 1.CONFIGURATION
 ---------------------------------------------------------------------------------
 	1.1 appSettings.json: 
@@ -11,13 +22,40 @@
 			the information about authorization and proxy 
 			application endpoints.
 
+			"Password" grant type is used for the authorization. 
+			By providing the client_id and client_secret of the APP that you created and 
+			subscribed to the File API, and your own credentials (username, password) 
+			that you use to sign in the NBG Technology HUB, the CLI will authorize you
+			and perform the required operation.
+
+			"client_id": "client_id_guid",
+			"client_secret": "client_secret_guid"
+			"username": "your_portal_username",
+			"password": "your_portal_password",
+
+			For users using Developer Portal credentials:
+			arc_provider=1
+
+			For users using iBank credentials:
+			arc_provider=5
+
+			It is suggested to use arc_provider=1 for sandbox calls and arc_provider=5 
+			for production calls.
+
+			For sandbox calls your sandbox_id also needs to be provided here.
+			"ethnofiles_sandbox_id": "MyUniqueSandbox"
+
 	1.2 inputData.json:
-			Within the "inputData.json" file, are configured the default 
-			parameter values used in each command. In order for these values 
+			Within the "inputData.json" file, the default parameter values 
+			used in each command, are configured. In order for these values 
 			to be used in a command, the argument "--completefromconfig" 
-			must be also used in that command. Then, every argument of that 
-			command, that is not explicitly set, will take the value from 
-			the inputData.json file. 
+			must also be used. 
+			This makes every argument missing from the command to be completed
+			from the value set in the inputData.json file.
+
+			If the "--completefromconfig" argument is not used this file will
+			be ignored during the operation and only the arguments you provide
+			in the command will be used (Example commands further below).
 
 2.COMMANDS
 ---------------------------------------------------------------------------------
