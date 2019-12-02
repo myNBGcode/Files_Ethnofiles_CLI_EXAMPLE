@@ -70,9 +70,9 @@ namespace FIleAPI_CLI
             Console.WriteLine($"PopulateFileTypes starting");
 
             string path = $"{Settings.configuration["ethnoProxyUrl"]}/populatefiletypes";
-            request.Header = new RequestHeader() { ID = Guid.NewGuid().ToString() ,Application = Guid.NewGuid().ToString() };
+            request.Header = new RequestHeader() { ID = Guid.NewGuid().ToString() , Application = Settings.configuration["client_id"]};
             var jsonBody = JsonConvert.SerializeObject(request);
-            restResponse = HttpRequestClient.ExecuteRestPost(path, jsonBody, HeadersHelper.GetHeaders(Guid.NewGuid().ToString(), GetAccessToken(Settings.configuration["ethnoScope"]), Settings.configuration["ethnofiles_sandbox_id"]));
+            restResponse = HttpRequestClient.ExecuteRestPost(path, jsonBody, HeadersHelper.GetHeaders(Settings.configuration["client_id"], Guid.NewGuid().ToString(), GetAccessToken(Settings.configuration["ethnoScope"]), Settings.configuration["sandbox_id"]));
 
             if (!restResponse.IsSuccessful)
                 throw new Exception(string.IsNullOrEmpty(restResponse.Content) ? restResponse.ErrorMessage : restResponse.Content);
@@ -85,9 +85,9 @@ namespace FIleAPI_CLI
             Console.WriteLine($"SendFileToEthnofiles starting");
 
             string path = $"{Settings.configuration["ethnoProxyUrl"]}/sendfiletoethnofiles";
-            request.Header = new RequestHeader() { ID = Guid.NewGuid().ToString(), Application = Guid.NewGuid().ToString() };
+            request.Header = new RequestHeader() { ID = Guid.NewGuid().ToString(), Application = Settings.configuration["client_id"] };
             var jsonBody = JsonConvert.SerializeObject(request);
-            restResponse = HttpRequestClient.ExecuteRestPost(path, jsonBody, HeadersHelper.GetHeaders(Guid.NewGuid().ToString(), GetAccessToken(Settings.configuration["ethnoScope"]), Settings.configuration["ethnofiles_sandbox_id"]));
+            restResponse = HttpRequestClient.ExecuteRestPost(path, jsonBody, HeadersHelper.GetHeaders(Settings.configuration["client_id"], Guid.NewGuid().ToString(), GetAccessToken(Settings.configuration["ethnoScope"]), Settings.configuration["sandbox_id"]));
 
             if (!restResponse.IsSuccessful)
                 throw new Exception(string.IsNullOrEmpty(restResponse.Content) ? restResponse.ErrorMessage : restResponse.Content);
