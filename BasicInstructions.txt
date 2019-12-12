@@ -120,7 +120,7 @@
 		## Send File To Ethnofiles Arguments ##
 			--fileapifileid : Required. File Guid from fileAPI.
 			--userid		: The user
-			--idfield		: File Type Id
+			--idfield*		: File Type Id
 			--rowcount      : The count of the rows in the file
 			--totalsum      : The total sum of the file
 			--debtoriban    : Debtor IBAN
@@ -129,11 +129,11 @@
 			--inboxid       : Inbox id
 			--xactionid     : Xaction Id
 			--issmsotp      : Flag that indicates if is SmsOtp
-			--convid        : Ethnofiles id for file formatting (it is filled automatically from ethnofiles api)
-			--xmlfilefield  : Flag that indicates if it is an xml file
 			--debtorname    : Debtor name
 			--acceptterms   : Accept terms flag
 			--accepttrnterms: Accept Ttn Terms flag
+
+		*!Important: For Sandbox calls the accepted File Type Ids are [01, 02, 03 ,04]
 
 4.EXAMPLES
 ---------------------------------------------------------------------------------
@@ -152,7 +152,7 @@
 		dotnet FIleAPI_CLI.dll --removeusertags --user MyUser --registry MyRegistry --removeusertagsfileid  aa7429d0-19ad-4efd-b1ac-02e42f128cd7 --usertagstoremove addedTag1,addedtag2
 
 	4.5 Send File To Ethnofiles Example
-		dotnet FIleAPI_CLI.dll --s --fileapifileid  b8a3f91c-0319-4748-9e77-be0a101514b4 --userid MyUser --idfield 43 --rowcount 11 --totalsum 0 --debtoriban "iban"
+		dotnet FIleAPI_CLI.dll --s --fileapifileid  b8a3f91c-0319-4748-9e77-be0a101514b4 --userid MyUser --idfield 04 --rowcount 11 --totalsum 0 --debtoriban "iban"
 	
 	4.6 Upload Example with filling all unspecified values from input.js
 		dotnet FIleAPI_CLI.dll --u --inputfile "../Files/smallfile.txt" --filedescription "Example Uploaded from cli tool" --completefromconfig

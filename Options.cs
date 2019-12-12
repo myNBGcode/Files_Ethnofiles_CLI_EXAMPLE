@@ -87,10 +87,10 @@ namespace FIleAPI_CLI
         public string XactionId { get; set; }
         [Option(SetName = "ethnofiles", HelpText = "(Only for Send file to ethnofiles operation)")]
         public bool? IsSmsOtp { get; set; }
-        [Option(SetName = "ethnofiles", HelpText = "(Only for Send file to ethnofiles operation)")]
-        public string ConvId { get; set; }
-        [Option(SetName = "ethnofiles", HelpText = "(Only for Send file to ethnofiles operation)")]
-        public bool? XmlFileField { get; set; }
+        //[Option(SetName = "ethnofiles", HelpText = "(Only for Send file to ethnofiles operation)")]
+        //public string ConvId { get; set; }
+        //[Option(SetName = "ethnofiles", HelpText = "(Only for Send file to ethnofiles operation)")]
+        //public bool? XmlFileField { get; set; }
         [Option(SetName = "ethnofiles", HelpText = "(Only for Send file to ethnofiles operation)")]
         public string DebtorName { get; set; }
         [Option(SetName = "ethnofiles", HelpText = "(Only for Send file to ethnofiles operation)")]
@@ -134,8 +134,8 @@ namespace FIleAPI_CLI
             InboxId = ParseParameter("InboxId", InboxId);
             XactionId = ParseParameter("XactionId", XactionId);
             IsSmsOtp = ParseParameter("IsSmsOtp", IsSmsOtp);
-            ConvId = ParseParameter("ConvId", ConvId);
-            XmlFileField = ParseParameter("XmlFileField", XmlFileField);
+            //ConvId = ParseParameter("ConvId", ConvId);
+            //XmlFileField = ParseParameter("XmlFileField", XmlFileField);
             DebtorName = ParseParameter("DebtorName", DebtorName);
             AcceptTerms = ParseParameter("AcceptTerms", AcceptTerms);
             AcceptTrnTerms = ParseParameter("AcceptTrnTerms", AcceptTrnTerms);

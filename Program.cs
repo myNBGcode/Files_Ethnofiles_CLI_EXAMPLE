@@ -109,8 +109,8 @@ namespace FIleAPI_CLI
                         InboxId = opts.InboxId,
                         XactionId = opts.XactionId,
                         IsSmsOtp = opts.IsSmsOtp,
-                        ConvId = opts.ConvId,
-                        XmlFileField = opts.XmlFileField,
+                        ConvId = selectedFileType.ConvId,
+                        XmlFileField = selectedFileType.XmlFileField,
                         DebtorName = opts.DebtorName,
                         AcceptTerms = opts.AcceptTerms,
                         AcceptTrnTerms = opts.AcceptTrnTerms

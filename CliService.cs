@@ -140,7 +140,7 @@ namespace FIleAPI_CLI
         {
             Console.WriteLine($"send to ethnofilese with id: {sendFileToEthnofilesRequest.Payload.FileApiFileId} ");
 
-            var updateXactionIdResponse =  fileApiRestRequest.SendFileToEthnofiles(sendFileToEthnofilesRequest);
+            var updateXactionIdResponse = fileApiRestRequest.SendFileToEthnofiles(sendFileToEthnofilesRequest);
             if (updateXactionIdResponse.Exception != null)
             {
                 Console.Write("\nSendFileToEthnofiles returned Exception : Code - " + updateXactionIdResponse.Exception.Code + " , Description - " + updateXactionIdResponse.Exception.Description);
@@ -155,7 +155,7 @@ namespace FIleAPI_CLI
             if (updateXactionIdResponse.Payload.IsDeferred)
                 Console.Write("\nSuccesfully send file with id " + sendFileToEthnofilesRequest.Payload.FileApiFileId + " for Approval. TransactionDate: " + updateXactionIdResponse.Payload.TransactionDate);
             else
-                Console.Write("\nSuccesfully send file with id " + sendFileToEthnofilesRequest.Payload.FileApiFileId + " to ethnofiles. TransactionDate: " + updateXactionIdResponse.Payload.TransactionDate + ", XactionId: "+ updateXactionIdResponse.Payload.XactionId + ", InboxId: " + updateXactionIdResponse.Payload.InboxId);
+                Console.Write("\nSuccesfully send file with id " + sendFileToEthnofilesRequest.Payload.FileApiFileId + " to ethnofiles. TransactionDate: " + updateXactionIdResponse.Payload.TransactionDate + ", XactionId: " + updateXactionIdResponse.Payload.XactionId + ", InboxId: " + updateXactionIdResponse.Payload.InboxId);
         }
 
         internal static EthnofilesFileTypesResponse PopulateFileTypes(IFileApiRestRequest fileApiRestRequest, PopulateFileTypesRequest populateFileTyesRequest, string idField)
@@ -176,7 +176,7 @@ namespace FIleAPI_CLI
 
             var fileType = populateFileTypesResponse.Payload.FileTypeList.Where(p => p.IdField == idField).FirstOrDefault();
             if (fileType == null)
-                Console.Write("\nFileType not found, with id: " + idField);
+                Console.Write("\nFileType not found, with id: " + idField + "." + Environment.NewLine + "Please select from the following file type ids list:\n[" + String.Join(',', populateFileTypesResponse.Payload.FileTypeList.Select(p => p.IdField)) + "]");
             else
                 Console.Write("\nFileType with id:" + idField + " , is selected from the following file type ids list: [" + String.Join(',', populateFileTypesResponse.Payload.FileTypeList.Select(p => p.IdField)) + "]");
 
@@ -202,7 +202,7 @@ namespace FIleAPI_CLI
             } while (tries < retryAttempts);
         }
 
-        
+
 
     }
 }
