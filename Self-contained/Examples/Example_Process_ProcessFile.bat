@@ -1,0 +1,2 @@
+dotnet ..\FIleAPI_CLI.dll --p --registry local --inputfile "C:\Ethnofiles API\github\FileAPI\FIleAPI_CLI\FIleAPI_CLI\etetest005.csv" --filedescription "Example Uploaded from cli tool" --idfield 43 --rowcount 11 --totalsum 0 --debtoriban "iban"
+pause
