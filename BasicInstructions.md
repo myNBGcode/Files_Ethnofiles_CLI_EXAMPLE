@@ -59,6 +59,8 @@
 
 			It is suggested to use arc_provider=1 for sandbox calls and arc_provider=5 
 			for production calls.
+			
+			For ethnofiles calls the ethnofiles scope should also be added to the "scope".
 
 			For sandbox calls your sandbox_id also needs to be provided here.
 			"sandbox_id": "MyUniqueSandbox"
@@ -85,8 +87,8 @@
 ---------------------------------------------------------------------------------
 	## General Arguments ##
 		The following arguments apply to all commands.
-			--user				 : The user.
-			--registry			 : User registry.
+			--user				 : The user. If not filled it takes the 'username' value from appsettings.json.
+			--registry			 : User registry. Any value (must be IBank to use the file from ethnofiles)
 			--subjectuser		 : If left blank then it will take the user value.
 			--subjectregistry	 : If left blank will take the registry value.
 			--completefromconfig : As stated above, with this argument in a command, 
@@ -119,8 +121,8 @@
 	3.5 --sendtoethnofiles (or --s): Sends file to Ethnofiles
 		## Send File To Ethnofiles Arguments ##
 			--fileapifileid : Required. File Guid from fileAPI.
-			--userid		: The user
-			--idfield		: File Type Id
+			--inputfile		: Filename with full path. (add this if you want to use the -datafromfilename command)
+			--idfield*		: File Type Id
 			--rowcount      : The count of the rows in the file
 			--totalsum      : The total sum of the file
 			--debtoriban    : Debtor IBAN
@@ -129,33 +131,71 @@
 			--inboxid       : Inbox id
 			--xactionid     : Xaction Id
 			--issmsotp      : Flag that indicates if is SmsOtp
-			--convid        : Ethnofiles id for file formatting (it is filled automatically from ethnofiles api)
-			--xmlfilefield  : Flag that indicates if it is an xml file
 			--debtorname    : Debtor name
 			--acceptterms   : Accept terms flag
 			--accepttrnterms: Accept Ttn Terms flag
+			--datafromfilename: False by default. Set it to true to get row count and total sum from file name.
+								The file name format must be XXXXXXXXXXXXXX_YYYYMMDD_XX_00000_000000.00-.FTI.XML
+								Row count part is 00000 and total sum part is 000000.00
+
+	3.6 --processfile (or --p): Uploads a file to file api and sends it to ethnofiles
+		## Process File Arguments ##
+			--inputfile		 : Required. Filename with full path.
+			--filedescription: Description for the file.
+			--folderid		 : Folder Guid. 
+			--metadata		 : File metadata.
+			--usertags		 : File tags separated by coma ','
+			--idfield*		: File Type Id
+			--rowcount      : The count of the rows in the file
+			--totalsum      : The total sum of the file
+			--debtoriban    : Debtor IBAN
+			--tannumber     : Tan Number
+			--locale        : Locale
+			--inboxid       : Inbox id
+			--xactionid     : Xaction Id
+			--issmsotp      : Flag that indicates if is SmsOtp
+			--debtorname    : Debtor name
+			--acceptterms   : Accept terms flag
+			--accepttrnterms: Accept Ttn Terms flag
+			--datafromfilename: False by default. Set it to true to get row count and total sum from file name.
+								The file name format must be XXXXXXXXXXXXXX_YYYYMMDD_XX_00000_000000.00-.FTI.XML
+								Row count part is 00000 and total sum part is 000000.00
+			--rowcountfrompainxml : If the parameter value is "001", the program will try to deserialize the xml 
+								input file according to SEPA 001 ISO 20022, and read the row count from the xml 
+								header node "NbOfTxs".
+			--totalsumfrompainxml : If the parameter value is "001", the program will try to deserialize the xml 
+								input file according to SEPA 001 ISO 20022, and read the row count from the xml 
+								header node "CtrlSum".
+
+		*!Important: For Sandbox calls the accepted File Type Ids are [01, 02, 03 ,04]
 
 4.EXAMPLES
 ---------------------------------------------------------------------------------
 	Commands examples assuming being in the dll directory.
 
 	4.1 Upload Example
-		dotnet FIleAPI_CLI.dll --u --user MyUser --registry MyRegistry --inputfile "../Files/smallfile.txt" --filedescription "Example Uploaded from cli tool"
+		dotnet FIleAPI_CLI.dll --u --registry MyRegistry --inputfile "../Files/smallfile.txt" --filedescription "Example Uploaded from cli tool"
 
 	4.2 Download Example
-		dotnet FIleAPI_CLI.dll --d --user MyUser --registry MyRegistry --fileid  aa7429d0-19ad-4efd-b1ac-02e42f128cd7 --downloadfolder C:\OutputFiles\
+		dotnet FIleAPI_CLI.dll --d --registry MyRegistry --fileid  aa7429d0-19ad-4efd-b1ac-02e42f128cd7 --downloadfolder C:\OutputFiles\
 
 	4.3 Add User Tags Example
-		dotnet FIleAPI_CLI.dll --addusertags --user MyUser --registry MyRegistry --addusertagsfileid  aa7429d0-19ad-4efd-b1ac-02e42f128cd7 --usertagstoadd addedTag1,addedtag2,addedtag3
+		dotnet FIleAPI_CLI.dll --addusertags --registry MyRegistry --addusertagsfileid  aa7429d0-19ad-4efd-b1ac-02e42f128cd7 --usertagstoadd addedTag1,addedtag2,addedtag3
 
 	4.4 Remove User Tags Example
-		dotnet FIleAPI_CLI.dll --removeusertags --user MyUser --registry MyRegistry --removeusertagsfileid  aa7429d0-19ad-4efd-b1ac-02e42f128cd7 --usertagstoremove addedTag1,addedtag2
+		dotnet FIleAPI_CLI.dll --removeusertags --registry MyRegistry --removeusertagsfileid  aa7429d0-19ad-4efd-b1ac-02e42f128cd7 --usertagstoremove addedTag1,addedtag2
 
 	4.5 Send File To Ethnofiles Example
-		dotnet FIleAPI_CLI.dll --s --fileapifileid  b8a3f91c-0319-4748-9e77-be0a101514b4 --userid MyUser --idfield 43 --rowcount 11 --totalsum 0 --debtoriban "iban"
+		dotnet FIleAPI_CLI.dll --s --fileapifileid  b8a3f91c-0319-4748-9e77-be0a101514b4 --idfield 04 --rowcount 11 --totalsum 0 --debtoriban "iban"
 	
 	4.6 Upload Example with filling all unspecified values from input.js
 		dotnet FIleAPI_CLI.dll --u --inputfile "../Files/smallfile.txt" --filedescription "Example Uploaded from cli tool" --completefromconfig
+
+	4.7 Process File Example (Upload and send to ethofiles)
+		dotnet FIleAPI_CLI.dll --p --registry MyRegistry --inputfile "../Files/smallfile.txt" --filedescription "Example Uploaded from cli tool" --idfield 04 --rowcount 11 --totalsum 0 --debtoriban "iban"
+
+	4.8 Process File Example (Upload and send to ethofiles) for pain xml
+		dotnet FIleAPI_CLI.dll --p --registry MyRegistry --inputfile "../Files/sample_pain_001.XML" --filedescription "Example Uploaded from cli tool" --idfield 04 --debtoriban "the_iban" --debtorname "the_debtorname" --rowcountfrompainxml 001  --totalsumfrompainxml 001
 
 5.OTHER NOTES
 ---------------------------------------------------------------------------------
